@@ -1,23 +1,52 @@
 pipeline {
 agent any
-stages {
-  stage('Checkout') {
-    steps {
-// Checkout code from the Git repository
-     sh 'echo checking out'
-   }
-  }
-stage('Build') {
-  steps {
-// Build the Java application (replace with your build commands)
-  sh 'java --version'
- }
+
+```
+triggers {
+    githubPush()
+    pollSCM('H/2 * * * *')
 }
-stage('Deploy') {
-  steps {
-  // Deploy the application (replace with your deployment commands)
-   sh 'echo "Deploying the application"'
-   }
-  }
- }
+
+stages {
+
+    stage('Checkout') {
+        steps {
+            echo "Cloning repository..."
+            git 'https://github.com/vicky5762/Devops_learner.git'
+        }
+    }
+
+    stage('Build') {
+        steps {
+            echo "Build Stage Running"
+            sh 'java -version'
+        }
+    }
+
+    stage('Test') {
+        steps {
+            echo "Testing Stage Running"
+            sh 'echo Running tests...'
+        }
+    }
+
+    stage('Deploy') {
+        steps {
+            echo "Deployment Stage"
+            sh 'echo Application deployed successfully'
+        }
+    }
+
+}
+
+post {
+    success {
+        echo "CI/CD Pipeline completed successfully"
+    }
+    failure {
+        echo "Pipeline failed"
+    }
+}
+```
+
 }
