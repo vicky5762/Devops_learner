@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/vicky5762/Devops_learner.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'java -version'
