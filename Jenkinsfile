@@ -1,26 +1,30 @@
-triggers {
-    githubPush()
-    pollSCM('H/2 * * * *')
-}
+pipeline {
+    agent any
 
-stages {
-
-    stage('Checkout') {
-        steps {
-            git 'https://github.com/vicky5762/Devops_learner.git'
-        }
+    triggers {
+        githubPush()
+        pollSCM('H/2 * * * *')
     }
 
-    stage('Build') {
-        steps {
-            sh 'java -version'
-        }
-    }
+    stages {
 
-    stage('Deploy') {
-        steps {
-            sh 'echo Deploying application'
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/vicky5762/Devops_learner.git'
+            }
         }
-    }
 
+        stage('Build') {
+            steps {
+                sh 'java -version'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'echo Deploying application'
+            }
+        }
+
+    }
 }
